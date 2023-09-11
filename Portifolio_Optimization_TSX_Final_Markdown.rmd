@@ -1,0 +1,85 @@
+## Stock Portfolio Optimization
+We will look at the S&P/TSX Index top performance stock names and compare it to the performance of Technology Index XLK.
+The list for stocks is taken from an HTML table from Wikipedia and CAPM analysis is done using Yahoo Finance API.
+
+# 1. Initial Set Up and Demonstration
+```{r}
+library(tidyverse)
+library(tidyquant)
+# Set random seed for reproducibility reasons
+
+set.seed(301)
+
+#Get HTML tables containing all stocks in TSX composite index,
+#number 2 to refer the table index
+
+ticker_names_table <-
+    htmltab::htmltab("https://en.wikipedia.org/w/index.php?title=S%26P/TSX_Composite_Index",2)
+
+#Get all stock tickers from column Ticker using pipe operator 
+#%>% passing from left to right
+ticker_names <- as.vector(ticker_names_table %>% select("Ticker"))
+show(ticker_names)
+```
+
+Using Yahoo finance requires specific format, especially for stocks with period. We need to transform it into a hyphen
+#and append ".TO" at the end to each tickers.
+```{r}
+ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Ticker)
+#Use stringi to parse and join string to our tickers
+ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
+
+#Now, using log returns to see the change in price with respect to the day before using tq_get from
+#tidyquant
+TSX_returns <- ticker_names_transform %>%
+    tq_get(get = "stock.prices",
+           from = "2023-01-01",
+           to = "2023-07-01") %>%
+    group_by(symbol) %>% #See periodReturn per ticker
+    tq_transmute(select = adjusted,
+                 mutate_fun = periodReturn, #mutate_fun create new columns using specific function, here finding the period return
+                 period="daily",
+                 type="log",
+                 col_rename = "Ra") #Ra stands for return group a
+show(TSX_returns)
+```
+Next, we will benchmark the stock against particular industry index in S&P500. We'll choose XLK here since
+tq_get only works in the US Index
+
+```{r}
+XLK_returns <- "XLK" %>%
+    tq_get(get= "stock.prices",
+           from = "2023-01-01",
+           to = "2023-07-01") %>%
+    tq_transmute(select = adjusted,
+                 mutate_fun =  periodReturn,
+                 type = "log",
+                 period = "daily",
+                 col_rename = "Rb") #Return for group b 
+
+#Perform left-join on Ra and Rb to see how well stocks perform against index
+RaRb <- left_join(TSX_returns,
+                  XLK_returns,
+                  by = "date") %>%
+        group_by(symbol)
+show(RaRb)
+```
+
+```{r}
+#Capital Asset Pricing Model (CAPM) : Expected Return R = alpha*Return - beta*Risk
+CAPM <- RaRb %>%
+        tq_performance(
+            Ra=Ra,
+            Rb = Rb,
+            performance_fun = table.CAPM)
+
+#Depend on return(Alpha) or Risk(Beta) preference, pick appropriate 
+#indicator or Information Ratio a/b for both, or top quintile performance.
+top_percentile <- CAPM %>%
+                filter(AnnualizedAlpha > quantile(CAPM$AnnualizedAlpha, 0.9))
+
+#Using the new tickers, return to our original log-return table to get its log-return
+quintile_ticker = top_percentile$symbol
+
+stock_returns_quintile <- TSX_returns %>% filter(symbol %in% quintile_ticker)
+```
