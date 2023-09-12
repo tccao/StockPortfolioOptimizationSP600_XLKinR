@@ -1,3 +1,7 @@
+---
+title: Stock Optimization
+output: github_document
+---
 ## Stock Portfolio Optimization
 We will look at the S&P/TSX Index top performance stock names and compare it to the performance of Technology Index XLK.
 The list for stocks is taken from an HTML table from Wikipedia and CAPM analysis is done using Yahoo Finance API.
@@ -14,24 +18,24 @@ set.seed(301)
 #number 2 to refer the table index
 
 ticker_names_table <-
-    htmltab::htmltab("https://en.wikipedia.org/w/index.php?title=S%26P/TSX_Composite_Index",2)
+    htmltab::htmltab("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies",1)
 
 #Get all stock tickers from column Ticker using pipe operator 
 #%>% passing from left to right
-ticker_names <- as.vector(ticker_names_table %>% select("Ticker"))
+ticker_names <- as.vector(ticker_names_table %>% select("Symbol"))
 show(ticker_names)
 ```
 
 Using Yahoo finance requires specific format, especially for stocks with period. We need to transform it into a hyphen
-#and append ".TO" at the end to each tickers.
+#and append ".TO" at the end to each tickers. Update: New version of tidyquant no longer requires this
 ```{r}
-ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Ticker)
-#Use stringi to parse and join string to our tickers
-ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
+# ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Ticker)
+# #Use stringi to parse and join string to our tickers
+# ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
 
 #Now, using log returns to see the change in price with respect to the day before using tq_get from
 #tidyquant
-TSX_returns <- ticker_names_transform %>%
+TSX_returns <- ticker_names$Symbol %>%
     tq_get(get = "stock.prices",
            from = "2023-01-01",
            to = "2023-07-01") %>%
@@ -65,6 +69,7 @@ RaRb <- left_join(TSX_returns,
 show(RaRb)
 ```
 
+
 ```{r}
 #Capital Asset Pricing Model (CAPM) : Expected Return R = alpha*Return - beta*Risk
 CAPM <- RaRb %>%
@@ -82,4 +87,47 @@ top_percentile <- CAPM %>%
 quintile_ticker = top_percentile$symbol
 
 stock_returns_quintile <- TSX_returns %>% filter(symbol %in% quintile_ticker)
+show(stock_returns_quintile)
+```
+## Performing Portfolio Distribution
+# 1. Single case method
+We need to manually set weights since tq_portfolio doesn't have filter function
+```{r}
+set.seed(5)
+weights <- c(1:100)
+random_weights <- sample(weights, size=length(quintile_ticker), replace = TRUE)
+index_for_zeroes <- sample(c(1:length(random_weights)),round(length(quintile_ticker)*0.78,0)) #37 out of 47 Tickers will be 0
+random_weights[index_for_zeroes] <- 0 #Insert zeroes accordingly
+#Random weigth of 0 yields result similar to Gaussian Hyper Parameter Search, which is better than quadratic optimization in term of speed and performance
+
+#Now, we need to ensure all weights sum up as 1 by normalizing them
+weights_mapping_single <- tibble(
+    symbols = quintile_ticker,
+    weights = random_weights) %>%
+        mutate( weights = weights/sum(weights))
+
+#Use tq_portfolio to pick portfolio with non-zero weights. Respective return = sum of product of log return X weights
+portfolio_returns_daily <- stock_returns_quintile %>% 
+    tq_portfolio(assets_col = symbol,
+                 returns_col =  Ra,
+                 weights =  weights_mapping_single,
+                 col_rename = "Ra")
+
+#Now, we join Benchmark return to our portfolio
+RaRb_single_portfolio <- left_join(portfolio_returns_daily,
+                                   XLK_returns,
+                                   by = "date")
+show(RaRb_single_portfolio)
+```
+Then, we continue with CAPM analysis 
+```{r}
+#Perform CAPM analysis
+RaRb_single_portfolio %>%
+  tq_performance(Ra = Ra, Rb = Rb, performance_fun = table.CAPM)
+RaRb_single_portfolio %>%
+  tq_performance(Ra = Ra, Rb = Rb, performance_fun = InformationRatio)
+```
+Finally, a bar plot should help us visualize the performance
+```{r}
+
 ```

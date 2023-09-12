@@ -1,8 +1,8 @@
-#Install important libraries
+  #Install important libraries
 install.packages("XML")
 install.packages("htmltab")
 install.packages("tidyquant")
-# Import necessary libraries
+  # Import necessary libraries
 
 library(tidyverse)
 library(tidyquant)
@@ -11,25 +11,26 @@ library(tidyquant)
 
 set.seed(301)
 
-#Get HTML tables containing all stocks in TSX composite index,
+#Get HTML tables containing all stocks in S&P600 smallcap composite index,
 #number 2 to refer the table index
 
 ticker_names_table <-
-    htmltab::htmltab("https://en.wikipedia.org/w/index.php?title=S%26P/TSX_Composite_Index",2)
+    htmltab::htmltab("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies",1)
 
 #Get all stock tickers from column Ticker using pipe operator 
 #%>% passing from left to right
-ticker_names <- as.vector(ticker_names_table %>% select("Ticker"))
+ticker_names <- as.vector(ticker_names_table %>% select("Symbol"))
 
+##Only applicable to old tidyquant 
 #Using Yahoo finance requires specific format, especially for stocks with period. We need to transform it into a hyphen
-#and append ".TO" at the end to each tickers.
-ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Ticker)
-#Use stringi to parse and join string to our tickers
-ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
+# #and append ".TO" at the end to each tickers.
+# ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Symbol)
+# #Use stringi to parse and join string to our tickers
+# ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
 
 #Now, using log returns to see the change in price with respect to the day before using tq_get from
 #tidyquant
-TSX_returns <- ticker_names_transform %>%
+SP600_returns <- ticker_names$Symbol %>% #Replace ticker_names_transform for old version
     tq_get(get = "stock.prices",
            from = "2023-01-01",
            to = "2023-07-01") %>%
@@ -54,7 +55,7 @@ XLK_returns <- "XLK" %>%
                  col_rename = "Rb") #Return for group b 
 
 #Perform left-join on Ra and Rb to see how well stocks perform against index
-RaRb <- left_join(TSX_returns,
+RaRb <- left_join(SP600_returns,
                   XLK_returns,
                   by = "date") %>%
         group_by(symbol)
@@ -74,7 +75,7 @@ top_percentile <- CAPM %>%
 #Using the new tickers, return to our original log-return table to get its log-return
 quintile_ticker = top_percentile$symbol
 
-stock_returns_quintile <- TSX_returns %>% filter(symbol %in% quintile_ticker)
+stock_returns_quintile <- SP600_returns %>% filter(symbol %in% quintile_ticker)
 
 #Performing Portfolio Distribution
 
@@ -208,7 +209,7 @@ portfolio_growth_monthly_multi <- stock_returns_quintile %>%
 #Plotting our result to see howeach portfolio performs
 portfolio_growth_monthly_multi %>%
   ggplot(aes(x = date, y = investment.growth, color = factor(portfolio), legend.position = "none")) +
-  geom_line(size = 2, legend.position = "none") +
+  geom_line(linewidth = 2) +
   labs(title = "Randomly Optimized Portfolios",
        subtitle = "Comparing Multiple Portfolios",
        x = "", y = "Portfolio Value",
