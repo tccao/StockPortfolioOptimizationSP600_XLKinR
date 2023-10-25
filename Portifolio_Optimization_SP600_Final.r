@@ -2,7 +2,8 @@
 install.packages("XML")
 install.packages("htmltab")
 install.packages("tidyquant")
-  # Import necessary libraries
+
+# Import necessary libraries
 
 library(tidyverse)
 library(tidyquant)
@@ -33,7 +34,7 @@ ticker_names <- as.vector(ticker_names_table %>% select("Symbol"))
 SP600_returns <- ticker_names$Symbol %>% #Replace ticker_names_transform for old version
     tq_get(get = "stock.prices",
            from = "2023-01-01",
-           to = "2023-07-01") %>%
+           to = "2023-09-14") %>%
     group_by(symbol) %>% #See periodReturn per ticker
     tq_transmute(select = adjusted,
                  mutate_fun = periodReturn, #mutate_fun create new columns using specific function, here finding the period return
@@ -47,7 +48,7 @@ SP600_returns <- ticker_names$Symbol %>% #Replace ticker_names_transform for old
 XLK_returns <- "XLK" %>%
     tq_get(get= "stock.prices",
            from = "2023-01-01",
-           to = "2023-07-01") %>%
+           to = "2023-09-14") %>%
     tq_transmute(select = adjusted,
                  mutate_fun =  periodReturn,
                  type = "log",
@@ -224,3 +225,6 @@ portfolio_growth_monthly_multi %>%
 #Spread the weight table over our porfolio to see how each Ticker is distributed. We can then sort by portfolio to see how each Ticker performs.
 options(digits=2)
 keymatrix <- weights_table %>% spread(key = portfolio, value = random_weights_multiple)
+print(keymatrix, n=length(keymatrix))
+
+keymatrix2 <- cbind(keymatrix$quintile_ticker,keymatrix$"65")
