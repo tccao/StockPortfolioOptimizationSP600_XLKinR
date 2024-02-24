@@ -1,0 +1,167 @@
+---
+title: Stock Optimization
+output: github_document
+---
+## Stock Portfolio Optimization
+We will look at the S&P/TSX Index top performance stock names and compare it to the performance of Technology Index XLK.
+The list for stocks is taken from an HTML table from Wikipedia and CAPM analysis is done using Yahoo Finance API.
+
+# 1. Initial Set Up and Demonstration
+```{r}
+library(tidyverse)
+library(tidyquant)
+# Set random seed for reproducibility reasons
+
+set.seed(301)
+
+#Get HTML tables containing all stocks in TSX composite index,
+#number 2 to refer the table index
+
+ticker_names_table <-
+    htmltab::htmltab("https://finance.yahoo.com/quote/QQQ/",-1)
+ticker_names_table
+#Get all stock tickers from column Ticker using pipe operator 
+#%>% passing from left to right
+#ticker_names <- as.vector(ticker_names_table %>% select("Symbol"))
+#show(ticker_names)
+```
+
+Using Yahoo finance requires specific format, especially for stocks with period. We need to transform it into a hyphen
+#and append ".TO" at the end to each tickers. Update: New version of tidyquant no longer requires this
+# ```{r}
+# # ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Ticker)
+# # #Use stringi to parse and join string to our tickers
+# # ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
+
+# #Now, using log returns to see the change in price with respect to the day before using tq_get from
+# #tidyquant
+# TSX_returns <- ticker_names$Symbol %>%
+#     tq_get(get = "stock.prices",
+#            from = "2023-01-01",
+#            to = "2023-07-01") %>%
+#     group_by(symbol) %>% #See periodReturn per ticker
+#     tq_transmute(select = adjusted,
+#                  mutate_fun = periodReturn, #mutate_fun create new columns using specific function, here finding the period return
+#                  period="daily",
+#                  type="log",
+#                  col_rename = "Ra") #Ra stands for return group a
+# show(TSX_returns)
+```
+
+```{r}
+#Update date everytime we run
+current_date = Sys.Date()
+YOY_date = current_date-years(1)
+
+TSX_returns <- 
+    tq_get("QQQ",get = "stock.prices",
+           from = YOY_date,
+           to = current_date) %>%
+    group_by("QQQ") %>% #See periodReturn per ticker
+    tq_transmute(select = adjusted,
+                 mutate_fun = periodReturn, #mutate_fun create new columns using specific function, here finding the period return
+                 period="daily",
+                 type="log",
+                 col_rename = "Ra_QQQ") %>% arrange(desc(date)) #Ra stands for return group a 
+show(TSX_returns)
+
+```
+
+Next, we will benchmark the stock against particular industry index in S&P500. We'll choose S&P500 here since
+tq_get only works in the US Index
+
+```{r}
+XLK_returns <- "^GSPC" %>%
+    tq_get(get= "stock.prices",
+           from = YOY_date,
+           to = current_date) %>%
+    #group_by("XLK") %>%
+    tq_transmute(select = adjusted,
+                 mutate_fun =  periodReturn,
+                 type = "log",
+                 period = "daily",
+                 col_rename = "Rb_XLK") #Return for group b 
+
+#Perform left-join on Ra and Rb to see how well stocks perform against index
+RaRb <- left_join(TSX_returns,
+                  XLK_returns,
+                  by = "date")
+
+show(RaRb)
+
+```
+
+#Perform CAPM analysis
+
+```{r}
+#Use tq_portfolio to pick portfolio with non-zero weights. Respective return = sum of product of log return X weights
+portfolio_returns_daily <- RaRb 
+
+portfolio_returns_daily %>%
+  tq_performance(Ra = Ra_QQQ, Rb = Rb_XLK, performance_fun = table.CAPM)
+portfolio_returns_daily %>%
+  tq_performance(Ra = Ra_QQQ, Rb = Rb_XLK, performance_fun = InformationRatio)
+
+#Plot daily returns using bar plot with regresion line for trend
+
+portfolio_returns_daily %>%
+  ggplot(aes(x = date, y = Ra_QQQ)) +
+  geom_bar(stat = "identity", fill = palette_light()[[1]]) +
+  labs(title = "Portfolio Returns",
+       x = "", y = "Monthly Returns") +
+  geom_smooth(method = "lm") +
+  theme_tq() +
+  scale_color_tq() +
+  scale_y_continuous(labels = scales::percent)
+```
+```{r}
+#Test out our portfolio with 10,000 investment.
+#Use tq_portfolio to pick portfolio with non-zero weights. Respective return = sum of product of log return X weights
+portfolio_returns_daily <- TSX_returns %>%
+    tq_portfolio(assets_col = "QQQ",
+                 returns_col =  Ra_QQQ,
+                 col_rename = "Ra_QQQ"
+                 )
+
+symbol_a = c(rep('PRT', length(portfolio_returns_daily$Ra_QQQ)))
+
+portfolio_asset_name = cbind(portfolio_returns_daily, symbol_a)
+
+portfolio_growth_single <- portfolio_asset_name %>%
+    tq_portfolio(assets_col   = symbol_a, 
+                returns_col  = Ra_QQQ, 
+                col_rename   = "investment.growth",
+                wealth.index = TRUE) %>%
+    mutate(investment.growth = investment.growth * 10000)
+
+#Now, let's compare it with our bask XLK to see how our portfolio return
+symbol_b = c(rep('XLK', length(XLK_returns$Rb_XLK)))
+
+XLK_asset_name = cbind(XLK_returns, symbol_b)
+
+portfolio_growth_XLK <- XLK_asset_name %>%
+    tq_portfolio(assets_col   = symbol_b, 
+                returns_col  = Rb_XLK, 
+                col_rename   = "investment.growth",
+                wealth.index = TRUE) %>%
+    mutate(investment.growth = investment.growth * 10000)
+
+#Plot both portfolio, with blue being our pick and red being the index fund
+ggplot() + 
+geom_line(data = portfolio_growth_single, aes(x = date, y = investment.growth), color = "blue") +
+geom_line(data = portfolio_growth_XLK, aes(x = date, y = investment.growth), color = "red") +
+labs(title = "Portfolio Growth", x = "", y = "Portfolio Value") +
+theme_tq() +
+scale_color_tq() +
+scale_y_continuous(labels = scales::dollar)
+```
+
+test <- bind_rows(list("QQQ"=portfolio_growth_single,"SP500"=portfolio_growth_XLK),.id="Portfolio")
+#Plot both portfolio, with blue being our pick and red being the index fund
+test %>% 
+  ggplot() + 
+  geom_line(data = test, aes(x = date, y = investment.growth, color = Portfolio)) +
+  labs(title = "Portfolio Growth", x = "", y = "Portfolio Value") +
+  theme_tq() +
+  scale_color_tq() +
+  scale_y_continuous(labels = scales::dollar)
