@@ -219,8 +219,10 @@ portfolio_growth_monthly_multi %>%
   geom_smooth(method = "loess") +
   theme_tq() +
   scale_color_tq() +
-  theme(legend.position = "none") +
+  theme() +
   scale_y_continuous(labels = scales::dollar)
+  # theme(legend.position = "none") +
+  
 
 #Spread the weight table over our porfolio to see how each Ticker is distributed. We can then sort by portfolio to see how each Ticker performs.
 options(digits=2)
@@ -228,3 +230,23 @@ keymatrix <- weights_table %>% spread(key = portfolio, value = random_weights_mu
 print(keymatrix, n=length(keymatrix))
 
 keymatrix2 <- cbind(keymatrix$quintile_ticker,keymatrix$"65")
+
+#Only plot the return of the highest and the lowest portfolio
+best_portfolio <- annualized_returns[1,1]
+worst_portfolio <- annualized_returns[nrow(annualized_returns)-1,1]
+best_worst_portfolio <- c(best_portfolio,worst_portfolio)
+
+portfolio_growth_monthly_multi %>%
+  filter(portfolio %in% best_worst_portfolio) %>% 
+  ggplot(aes(x = date, y = investment.growth, color = factor(portfolio), legend.position = "none")) +
+  geom_line(linewidth = 2) +
+  labs(title = "Randomly Optimized Portfolios",
+       subtitle = "Comparing Multiple Portfolios",
+       x = "", y = "Portfolio Value",
+       color = "Portfolio",
+       legend.position = "none") +
+  geom_smooth(method = "loess") +
+  theme_tq() +
+  scale_color_tq() +
+  theme() +
+  scale_y_continuous(labels = scales::dollar)
