@@ -1,33 +1,35 @@
-  #Install important libraries
+#Install important libraries
 # install.packages("XML")
 # install.packages("htmltab")
+# install.packages("rvest")
 # install.packages("tidyquant")
 
 # Import necessary libraries
-
 library(tidyverse)
 library(tidyquant)
+library(rvest)
 
 # Set random seed for reproducibility reasons
-
 set.seed(301)
 
 #Get HTML tables containing all stocks in S&P600 smallcap composite index,
 #number 2 to refer the table index
 
-ticker_names_table <-
-    htmltab::htmltab("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies",1)
+#Get HTML tables containing all stocks in S&P600 smallcap composite index
+ticker_names_table <- read_html("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies") %>%
+    html_element("table.wikitable") %>%
+    html_table()
 
 #Get all stock tickers from column Ticker using pipe operator 
-#%>% passing from left to right
 ticker_names <- as.vector(ticker_names_table %>% select("Symbol"))
+
 
 ##Only applicable to old tidyquant 
 #Using Yahoo finance requires specific format, especially for stocks with period. We need to transform it into a hyphen
 # #and append ".TO" at the end to each tickers.
-# ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Symbol)
+# # ticker_names_transform <- gsub("[[:punct:]]","-",ticker_names$Symbol)
 # #Use stringi to parse and join string to our tickers
-# ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
+# # ticker_names_transform <- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))
 
 #Now, using log returns to see the change in price with respect to the day before using tq_get from
 #tidyquant
@@ -226,7 +228,9 @@ portfolio_growth_monthly_multi %>%
 
 #Spread the weight table over our porfolio to see how each Ticker is distributed. We can then sort by portfolio to see how each Ticker performs.
 options(digits=2)
-keymatrix <- weights_table %>% spread(key = portfolio, value = random_weights_multiple)
+keymatrix <- weights_table %>% 
+    pivot_wider(names_from = portfolio, 
+                values_from = random_weights_multiple)
 print(keymatrix, n=length(keymatrix))
 
 keymatrix2 <- cbind(keymatrix$quintile_ticker,keymatrix$"65")

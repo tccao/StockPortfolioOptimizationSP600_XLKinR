@@ -3,25 +3,24 @@ title: Stock Optimization
 output: github_document
 ---
 ## Stock Portfolio Optimization
-We will look at the S&P/TSX Index top performance stock names and compare it to the performance of Technology Index XLK.
+We will look at the S&P 600 Small Cap Index top performance stock names and compare it to the performance of Technology Index XLK.
 The list for stocks is taken from an HTML table from Wikipedia and CAPM analysis is done using Yahoo Finance API.
 
 # 1. Initial Set Up and Demonstration
 ```{r}
 library(tidyverse)
 library(tidyquant)
+library(rvest)  # Add rvest library
 # Set random seed for reproducibility reasons
 
 set.seed(301)
 
-#Get HTML tables containing all stocks in TSX composite index,
-#number 2 to refer the table index
-
-ticker_names_table <-
-    htmltab::htmltab("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies",1)
+#Get HTML tables containing all stocks in S&P600 smallcap composite index
+ticker_names_table <- read_html("https://en.wikipedia.org/wiki/List_of_S%26P_600_companies") %>%
+    html_element("table.wikitable") %>%
+    html_table()
 
 #Get all stock tickers from column Ticker using pipe operator 
-#%>% passing from left to right
 ticker_names <- as.vector(ticker_names_table %>% select("Symbol"))
 show(ticker_names)
 ```
@@ -129,5 +128,13 @@ RaRb_single_portfolio %>%
 ```
 Finally, a bar plot should help us visualize the performance
 ```{r}
-
+portfolio_returns_daily %>%
+  ggplot(aes(x = date, y = Ra)) +
+  geom_bar(stat = "identity", fill = palette_light()[[1]]) +
+  labs(title = "Portfolio Returns",
+       x = "", y = "Monthly Returns") +
+  geom_smooth(method = "lm") +
+  theme_tq() +
+  scale_color_tq() +
+  scale_y_continuous(labels = scales::percent)
 ```
