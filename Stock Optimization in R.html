@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="generator" content="pandoc">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style type="text/css">
+@font-face {
+font-family: octicons-link;
+src: url(data:font/woff;charset=utf-8;base64,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) format('woff');
+}
+body {
+-webkit-text-size-adjust: 100%;
+text-size-adjust: 100%;
+color: #333;
+font-family: "Helvetica Neue", Helvetica, "Segoe UI", Arial, freesans, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+font-size: 16px;
+line-height: 1.6;
+word-wrap: break-word;
+}
+a {
+background-color: transparent;
+}
+a:active,
+a:hover {
+outline: 0;
+}
+strong {
+font-weight: bold;
+}
+h1 {
+font-size: 2em;
+margin: 0.67em 0;
+}
+img {
+border: 0;
+}
+hr {
+box-sizing: content-box;
+height: 0;
+}
+pre {
+overflow: auto;
+}
+code,
+kbd,
+pre {
+font-family: monospace, monospace;
+font-size: 1em;
+}
+input {
+color: inherit;
+font: inherit;
+margin: 0;
+}
+html input[disabled] {
+cursor: default;
+}
+input {
+line-height: normal;
+}
+input[type="checkbox"] {
+box-sizing: border-box;
+padding: 0;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+td,
+th {
+padding: 0;
+}
+* {
+box-sizing: border-box;
+}
+input {
+font: 13px / 1.4 Helvetica, arial, nimbussansl, liberationsans, freesans, clean, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+a {
+color: #4078c0;
+text-decoration: none;
+}
+a:hover,
+a:active {
+text-decoration: underline;
+}
+hr {
+height: 0;
+margin: 15px 0;
+overflow: hidden;
+background: transparent;
+border: 0;
+border-bottom: 1px solid #ddd;
+}
+hr:before {
+display: table;
+content: "";
+}
+hr:after {
+display: table;
+clear: both;
+content: "";
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 15px;
+margin-bottom: 15px;
+line-height: 1.1;
+}
+h1 {
+font-size: 30px;
+}
+h2 {
+font-size: 21px;
+}
+h3 {
+font-size: 16px;
+}
+h4 {
+font-size: 14px;
+}
+h5 {
+font-size: 12px;
+}
+h6 {
+font-size: 11px;
+}
+blockquote {
+margin: 0;
+}
+ul,
+ol {
+padding: 0;
+margin-top: 0;
+margin-bottom: 0;
+}
+ol ol,
+ul ol {
+list-style-type: lower-roman;
+}
+ul ul ol,
+ul ol ol,
+ol ul ol,
+ol ol ol {
+list-style-type: lower-alpha;
+}
+dd {
+margin-left: 0;
+}
+code {
+font-family: Consolas, "Liberation Mono", Menlo, Courier, monospace;
+font-size: 12px;
+}
+pre {
+margin-top: 0;
+margin-bottom: 0;
+font: 12px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+.select::-ms-expand {
+opacity: 0;
+}
+.octicon {
+font: normal normal normal 16px/1 octicons-link;
+display: inline-block;
+text-decoration: none;
+text-rendering: auto;
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
+-webkit-user-select: none;
+-moz-user-select: none;
+-ms-user-select: none;
+user-select: none;
+}
+.octicon-link:before {
+content: '\f05c';
+}
+.markdown-body:before {
+display: table;
+content: "";
+}
+.markdown-body:after {
+display: table;
+clear: both;
+content: "";
+}
+.markdown-body>*:first-child {
+margin-top: 0 !important;
+}
+.markdown-body>*:last-child {
+margin-bottom: 0 !important;
+}
+a:not([href]) {
+color: inherit;
+text-decoration: none;
+}
+.anchor {
+display: inline-block;
+padding-right: 2px;
+margin-left: -18px;
+}
+.anchor:focus {
+outline: none;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+margin-top: 1em;
+margin-bottom: 16px;
+font-weight: bold;
+line-height: 1.4;
+}
+h1 .octicon-link,
+h2 .octicon-link,
+h3 .octicon-link,
+h4 .octicon-link,
+h5 .octicon-link,
+h6 .octicon-link {
+color: #000;
+vertical-align: middle;
+visibility: hidden;
+}
+h1:hover .anchor,
+h2:hover .anchor,
+h3:hover .anchor,
+h4:hover .anchor,
+h5:hover .anchor,
+h6:hover .anchor {
+text-decoration: none;
+}
+h1:hover .anchor .octicon-link,
+h2:hover .anchor .octicon-link,
+h3:hover .anchor .octicon-link,
+h4:hover .anchor .octicon-link,
+h5:hover .anchor .octicon-link,
+h6:hover .anchor .octicon-link {
+visibility: visible;
+}
+h1 {
+padding-bottom: 0.3em;
+font-size: 2.25em;
+line-height: 1.2;
+border-bottom: 1px solid #eee;
+}
+h1 .anchor {
+line-height: 1;
+}
+h2 {
+padding-bottom: 0.3em;
+font-size: 1.75em;
+line-height: 1.225;
+border-bottom: 1px solid #eee;
+}
+h2 .anchor {
+line-height: 1;
+}
+h3 {
+font-size: 1.5em;
+line-height: 1.43;
+}
+h3 .anchor {
+line-height: 1.2;
+}
+h4 {
+font-size: 1.25em;
+}
+h4 .anchor {
+line-height: 1.2;
+}
+h5 {
+font-size: 1em;
+}
+h5 .anchor {
+line-height: 1.1;
+}
+h6 {
+font-size: 1em;
+color: #777;
+}
+h6 .anchor {
+line-height: 1.1;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table,
+pre {
+margin-top: 0;
+margin-bottom: 16px;
+}
+hr {
+height: 4px;
+padding: 0;
+margin: 16px 0;
+background-color: #e7e7e7;
+border: 0 none;
+}
+ul,
+ol {
+padding-left: 2em;
+}
+ul ul,
+ul ol,
+ol ol,
+ol ul {
+margin-top: 0;
+margin-bottom: 0;
+}
+li>p {
+margin-top: 16px;
+}
+dl {
+padding: 0;
+}
+dl dt {
+padding: 0;
+margin-top: 16px;
+font-size: 1em;
+font-style: italic;
+font-weight: bold;
+}
+dl dd {
+padding: 0 16px;
+margin-bottom: 16px;
+}
+blockquote {
+padding: 0 15px;
+color: #777;
+border-left: 4px solid #ddd;
+}
+blockquote>:first-child {
+margin-top: 0;
+}
+blockquote>:last-child {
+margin-bottom: 0;
+}
+table {
+display: block;
+width: 100%;
+overflow: auto;
+word-break: normal;
+word-break: keep-all;
+}
+table th {
+font-weight: bold;
+}
+table th,
+table td {
+padding: 6px 13px;
+border: 1px solid #ddd;
+}
+table tr {
+background-color: #fff;
+border-top: 1px solid #ccc;
+}
+table tr:nth-child(2n) {
+background-color: #f8f8f8;
+}
+img {
+max-width: 100%;
+box-sizing: content-box;
+background-color: #fff;
+}
+code {
+padding: 0;
+padding-top: 0.2em;
+padding-bottom: 0.2em;
+margin: 0;
+font-size: 85%;
+background-color: rgba(0,0,0,0.04);
+border-radius: 3px;
+}
+code:before,
+code:after {
+letter-spacing: -0.2em;
+content: "\00a0";
+}
+pre>code {
+padding: 0;
+margin: 0;
+font-size: 100%;
+word-break: normal;
+white-space: pre;
+background: transparent;
+border: 0;
+}
+.highlight {
+margin-bottom: 16px;
+}
+.highlight pre,
+pre {
+padding: 16px;
+overflow: auto;
+font-size: 85%;
+line-height: 1.45;
+background-color: #f7f7f7;
+border-radius: 3px;
+}
+.highlight pre {
+margin-bottom: 0;
+word-break: normal;
+}
+pre {
+word-wrap: normal;
+}
+pre code {
+display: inline;
+max-width: initial;
+padding: 0;
+margin: 0;
+overflow: initial;
+line-height: inherit;
+word-wrap: normal;
+background-color: transparent;
+border: 0;
+}
+pre code:before,
+pre code:after {
+content: normal;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font-size: 11px;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.pl-c {
+color: #969896;
+}
+.pl-c1,
+.pl-s .pl-v {
+color: #0086b3;
+}
+.pl-e,
+.pl-en {
+color: #795da3;
+}
+.pl-s .pl-s1,
+.pl-smi {
+color: #333;
+}
+.pl-ent {
+color: #63a35c;
+}
+.pl-k {
+color: #a71d5d;
+}
+.pl-pds,
+.pl-s,
+.pl-s .pl-pse .pl-s1,
+.pl-sr,
+.pl-sr .pl-cce,
+.pl-sr .pl-sra,
+.pl-sr .pl-sre {
+color: #183691;
+}
+.pl-v {
+color: #ed6a43;
+}
+.pl-id {
+color: #b52a1d;
+}
+.pl-ii {
+background-color: #b52a1d;
+color: #f8f8f8;
+}
+.pl-sr .pl-cce {
+color: #63a35c;
+font-weight: bold;
+}
+.pl-ml {
+color: #693a17;
+}
+.pl-mh,
+.pl-mh .pl-en,
+.pl-ms {
+color: #1d3e81;
+font-weight: bold;
+}
+.pl-mq {
+color: #008080;
+}
+.pl-mi {
+color: #333;
+font-style: italic;
+}
+.pl-mb {
+color: #333;
+font-weight: bold;
+}
+.pl-md {
+background-color: #ffecec;
+color: #bd2c00;
+}
+.pl-mi1 {
+background-color: #eaffea;
+color: #55a532;
+}
+.pl-mdr {
+color: #795da3;
+font-weight: bold;
+}
+.pl-mo {
+color: #1d3e81;
+}
+kbd {
+display: inline-block;
+padding: 3px 5px;
+font: 11px Consolas, "Liberation Mono", Menlo, Courier, monospace;
+line-height: 10px;
+color: #555;
+vertical-align: middle;
+background-color: #fcfcfc;
+border: solid 1px #ccc;
+border-bottom-color: #bbb;
+border-radius: 3px;
+box-shadow: inset 0 -1px 0 #bbb;
+}
+.task-list-item {
+list-style-type: none;
+}
+.task-list-item+.task-list-item {
+margin-top: 3px;
+}
+.task-list-item input {
+margin: 0 0.35em 0.25em -1.6em;
+vertical-align: middle;
+}
+:checked+.radio-label {
+z-index: 1;
+position: relative;
+border-color: #4078c0;
+}
+.sourceLine {
+display: inline-block;
+}
+code .kw { color: #000000; }
+code .dt { color: #ed6a43; }
+code .dv { color: #009999; }
+code .bn { color: #009999; }
+code .fl { color: #009999; }
+code .ch { color: #009999; }
+code .st { color: #183691; }
+code .co { color: #969896; }
+code .ot { color: #0086b3; }
+code .al { color: #a61717; }
+code .fu { color: #63a35c; }
+code .er { color: #a61717; background-color: #e3d2d2; }
+code .wa { color: #000000; }
+code .cn { color: #008080; }
+code .sc { color: #008080; }
+code .vs { color: #183691; }
+code .ss { color: #183691; }
+code .im { color: #000000; }
+code .va {color: #008080; }
+code .cf { color: #000000; }
+code .op { color: #000000; }
+code .bu { color: #000000; }
+code .ex { color: #000000; }
+code .pp { color: #999999; }
+code .at { color: #008080; }
+code .do { color: #969896; }
+code .an { color: #008080; }
+code .cv { color: #008080; }
+code .in { color: #008080; }
+</style>
+<style>
+body {
+box-sizing: border-box;
+min-width: 200px;
+max-width: 980px;
+margin: 0 auto;
+padding: 45px;
+padding-top: 0px;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<h1 id="stock-optimization">Stock Optimization</h1>
+<h2 id="stock-portfolio-optimization">Stock Portfolio Optimization</h2>
+<p>We will look at the S&amp;P 600 Small Cap Index top performance stock
+names and compare it to the performance of Technology Index XLK. The
+list for stocks is taken from an HTML table from Wikipedia and CAPM
+analysis is done using Yahoo Finance API.</p>
+<h1 id="id_1-initial-set-up-and-demonstration">1. Initial Set Up and
+Demonstration</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+## ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+## ✔ purrr     1.0.4     
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">library</span>(tidyquant)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo 
+## ── Attaching core tidyquant packages ─────────────────────── tidyquant 1.0.11 ──
+## ✔ PerformanceAnalytics 2.0.8      ✔ TTR                  0.24.4
+## ✔ quantmod             0.4.26     ✔ xts                  0.14.1── Conflicts ────────────────────────────────────────── tidyquant_conflicts() ──
+## ✖ zoo::as.Date()                 masks base::as.Date()
+## ✖ zoo::as.Date.numeric()         masks base::as.Date.numeric()
+## ✖ dplyr::filter()                masks stats::filter()
+## ✖ xts::first()                   masks dplyr::first()
+## ✖ dplyr::lag()                   masks stats::lag()
+## ✖ xts::last()                    masks dplyr::last()
+## ✖ PerformanceAnalytics::legend() masks graphics::legend()
+## ✖ quantmod::summary()            masks base::summary()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="fu">library</span>(rvest)  <span class="co"># Add rvest library</span></span></code></pre></div>
+<pre><code>## 
+## Attaching package: 'rvest'
+## 
+## The following object is masked from 'package:readr':
+## 
+##     guess_encoding</code></pre>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># Set random seed for reproducibility reasons</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">301</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#Get HTML tables containing all stocks in S&amp;P600 smallcap composite index</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a>ticker_names_table <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"https://en.wikipedia.org/wiki/List_of_S%26P_600_companies"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a>    <span class="fu">html_element</span>(<span class="st">"table.wikitable"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a>    <span class="fu">html_table</span>()</span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#Get all stock tickers from column Ticker using pipe operator </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a>ticker_names <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(ticker_names_table <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="st">"Symbol"</span>))</span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="fu">show</span>(ticker_names)</span></code></pre></div>
+<pre><code>## $Symbol
+##   [1] "AAP"    "AAT"    "ABCB"   "ABG"    "ABM"    "ABR"    "ACA"    "ACAD"  
+##   [9] "ACIW"   "ACLS"   "ADEA"   "ADMA"   "ADNT"   "ADUS"   "AEIS"   "AEO"   
+##  [17] "AESI"   "AGO"    "AGYS"   "AHCO"   "AHH"    "AIN"    "AIR"    "AKR"   
+##  [25] "AL"     "ALEX"   "ALG"    "ALGT"   "ALK"    "ALKS"   "ALRM"   "AMBC"  
+##  [33] "AMN"    "AMPH"   "AMR"    "AMSF"   "AMTM"   "AMWD"   "ANDE"   "ANIP"  
+##  [41] "AORT"   "AOSL"   "APAM"   "APLE"   "APOG"   "ARCB"   "ARI"    "ARLO"  
+##  [49] "AROC"   "ARR"    "ARWR"   "ASIX"   "ASO"    "ASTE"   "ASTH"   "ATEN"  
+##  [57] "ATGE"   "ATI"    "AUB"    "AVA"    "AVAV"   "AVNS"   "AWI"    "AWR"   
+##  [65] "AX"     "AXL"    "AZTA"   "AZZ"    "BANC"   "BANF"   "BANR"   "BBWI"  
+##  [73] "BCC"    "BCPC"   "BDN"    "BFH"    "BFS"    "BGC"    "BGS"    "BHE"   
+##  [81] "BHLB"   "BJRI"   "BKE"    "BKU"    "BL"     "BLFS"   "BLMN"   "BMI"   
+##  [89] "BOH"    "BOOT"   "BOX"    "BRC"    "BRKL"   "BSIG"   "BTU"    "BXMT"  
+##  [97] "CABO"   "CAKE"   "CAL"    "CALM"   "CALX"   "CARG"   "CARS"   "CASH"  
+## [105] "CATY"   "CBRL"   "CBU"    "CCOI"   "CCS"    "CENT"   "CENTA"  "CENX"  
+## [113] "CERT"   "CEVA"   "CFFN"   "CHCO"   "CHEF"   "CLB"    "CNK"    "CNMD"  
+## [121] "CNR"    "CNS"    "CNXN"   "COHU"   "COLL"   "CON"    "COOP"   "CORT"  
+## [129] "CPF"    "CPK"    "CPRX"   "CRC"    "CRGY"   "CRI"    "CRK"    "CRSR"  
+## [137] "CRVL"   "CSGS"   "CSR"    "CSWI"   "CTKB"   "CTRE"   "CTS"    "CUBI"  
+## [145] "CURB"   "CVBF"   "CVCO"   "CVI"    "CWEN"   "CWEN.A" "CWK"    "CWT"   
+## [153] "CXM"    "CXW"    "DAN"    "DCOM"   "DEA"    "DEI"    "DFH"    "DFIN"  
+## [161] "DGII"   "DIOD"   "DLX"    "DNOW"   "DOCN"   "DORM"   "DRH"    "DRQ"   
+## [169] "DV"     "DVAX"   "DXC"    "DXPE"   "DY"     "EAT"    "ECG"    "ECPG"  
+## [177] "EFC"    "EGBN"   "EIG"    "ELME"   "EMBC"   "ENOV"   "ENR"    "ENVA"  
+## [185] "EPAC"   "EPC"    "EPRT"   "ESE"    "ETD"    "ETSY"   "EVTC"   "EXPI"  
+## [193] "EXTR"   "EYE"    "EZPW"   "FBK"    "FBNC"   "FBP"    "FBRT"   "FCF"   
+## [201] "FCPT"   "FDP"    "FELE"   "FFBC"   "FHB"    "FIZZ"   "FL"     "FLGT"  
+## [209] "FORM"   "FOXF"   "FSS"    "FTDR"   "FTRE"   "FUL"    "FULT"   "FUN"   
+## [217] "FWRD"   "GBX"    "GDEN"   "GDOT"   "GDYN"   "GEO"    "GES"    "GFF"   
+## [225] "GIII"   "GKOS"   "GMS"    "GNL"    "GNW"    "GO"     "GOGO"   "GOLF"  
+## [233] "GPI"    "GPRE"   "GRBK"   "GSHD"   "GTES"   "GTY"    "GVA"    "HAFC"  
+## [241] "HAIN"   "HASI"   "HAYW"   "HBI"    "HCC"    "HCI"    "HCSG"   "HELE"  
+## [249] "HFWA"   "HI"     "HIMS"   "HIW"    "HLIT"   "HLX"    "HMN"    "HNI"   
+## [257] "HOPE"   "HP"     "HRMY"   "HSII"   "HSTM"   "HTH"    "HTLD"   "HTZ"   
+## [265] "HUBG"   "HWKN"   "HZO"    "IAC"    "IART"   "IBP"    "ICHR"   "ICUI"  
+## [273] "IDCC"   "IIIN"   "IIPR"   "INDB"   "INN"    "INSP"   "INSW"   "INVA"  
+## [281] "IOSP"   "IPAR"   "ITGR"   "ITRI"   "JACK"   "JBGS"   "JBLU"   "JBSS"  
+## [289] "JBT"    "JJSF"   "JOE"    "JXN"    "KAI"    "KALU"   "KAR"    "KFY"   
+## [297] "KLG"    "KLIC"   "KMT"    "KN"     "KOP"    "KREF"   "KRYS"   "KSS"   
+## [305] "KTB"    "KW"     "KWR"    "LBRT"   "LCII"   "LEG"    "LGIH"   "LGND"  
+## [313] "LKFN"   "LMAT"   "LNC"    "LNN"    "LPG"    "LQDT"   "LRN"    "LTC"   
+## [321] "LUMN"   "LXP"    "LZB"    "MAC"    "MARA"   "MATV"   "MATW"   "MATX"  
+## [329] "MBC"    "MC"     "MCRI"   "MCW"    "MCY"    "MD"     "MDU"    "MGEE"  
+## [337] "MGPI"   "MGY"    "MHO"    "MLAB"   "MLKN"   "MMI"    "MMSI"   "MNRO"  
+## [345] "MODG"   "MOG.A"  "MP"     "MPW"    "MRCY"   "MRP"    "MRTN"   "MSEX"  
+## [353] "MSGS"   "MTH"    "MTRN"   "MTUS"   "MTX"    "MXL"    "MYGN"   "MYRG"  
+## [361] "NABL"   "NATL"   "NAVI"   "NBHC"   "NBR"    "NBTB"   "NEO"    "NGVT"  
+## [369] "NHC"    "NMIH"   "NOG"    "NPK"    "NPO"    "NSIT"   "NTCT"   "NVEE"  
+## [377] "NVRI"   "NWBI"   "NWL"    "NWN"    "NX"     "NXRT"   "NYMT"   "ODP"   
+## [385] "OFG"    "OGN"    "OI"     "OII"    "OMCL"   "OMI"    "OSIS"   "OTTR"  
+## [393] "OUT"    "OXM"    "PAHC"   "PARR"   "PAYO"   "PATK"   "PBH"    "PBI"   
+## [401] "PCRX"   "PDCO"   "PDFS"   "PEB"    "PECO"   "PENN"   "PFBC"   "PFS"   
+## [409] "PGNY"   "PHIN"   "PI"     "PINC"   "PIPR"   "PJT"    "PLAB"   "PLAY"  
+## [417] "PLMR"   "PLUS"   "PLXS"   "PMT"    "POWL"   "PPBI"   "PRA"    "PRAA"  
+## [425] "PRDO"   "PRG"    "PRGS"   "PRK"    "PRLB"   "PRVA"   "PSMT"   "PTEN"  
+## [433] "PTGX"   "PUMP"   "PZZA"   "QDEL"   "QNST"   "QRVO"   "RAMP"   "RC"    
+## [441] "RCUS"   "RDN"    "RDNT"   "RES"    "REX"    "REZI"   "RGR"    "RHI"   
+## [449] "RNST"   "ROCK"   "ROG"    "RUN"    "RUSHA"  "RWT"    "RXO"    "SAFE"  
+## [457] "SABR"   "SAFT"   "SAH"    "SANM"   "SATS"   "SBCF"   "SBH"    "SBSI"  
+## [465] "SCHL"   "SCL"    "SCSC"   "SCVL"   "SDGR"   "SEDG"   "SEE"    "SEM"   
+## [473] "SFBS"   "SFNC"   "SGH"    "SHAK"   "SHEN"   "SHO"    "SHOO"   "SIG"   
+## [481] "SITC"   "SITM"   "SJW"    "SKT"    "SKY"    "SKYW"   "SLG"    "SLP"   
+## [489] "SLVM"   "SM"     "SMP"    "SMPL"   "SMTC"   "SNCY"   "SNDK"   "SNDR"  
+## [497] "SNEX"   "SONO"   "SPNT"   "SPSC"   "SPTN"   "SPXC"   "SSTK"   "STAA"  
+## [505] "STBA"   "STC"    "STEL"   "STEP"   "STRA"   "SUPN"   "SXC"    "SXI"   
+## [513] "SXT"    "SWI"    "TALO"   "TBBK"   "TDS"    "TDW"    "TFIN"   "TGI"   
+## [521] "TGNA"   "TGTX"   "THRM"   "THRY"   "THS"    "TILE"   "TMDX"   "TMP"   
+## [529] "TNC"    "TNDM"   "TPH"    "TR"     "TRIP"   "TRMK"   "TRN"    "TRNO"  
+## [537] "TRST"   "TRUP"   "TTGT"   "TTMI"   "TWI"    "TWO"    "UCBI"   "UCTT"  
+## [545] "UE"     "UFCS"   "UFPT"   "UHT"    "UNF"    "UNFI"   "UNIT"   "UPBD"  
+## [553] "URBN"   "USNA"   "USPH"   "UTL"    "UVV"    "VBTX"   "VCEL"   "VECO"  
+## [561] "VFC"    "VIAV"   "VICR"   "VIR"    "VIRT"   "VRE"    "VRRM"   "VRTS"  
+## [569] "VSAT"   "VSCO"   "VSH"    "VSTS"   "VTOL"   "VTLE"   "VVI"    "VYX"   
+## [577] "WABC"   "WAFD"   "WD"     "WDFC"   "WERN"   "WGO"    "WHD"    "WKC"   
+## [585] "WLY"    "WNC"    "WOLF"   "WOR"    "WRLD"   "WS"     "WSFS"   "WSR"   
+## [593] "WT"     "WWW"    "XHR"    "XNCR"   "XPEL"   "XRX"    "YELP"   "YOU"   
+## [601] "ZD"     "ZWS"</code></pre>
+<p>Using Yahoo finance requires specific format, especially for stocks
+with period. We need to transform it into a hyphen #and append “.TO” at
+the end to each tickers. Update: New version of tidyquant no longer
+requires this</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># ticker_names_transform &lt;- gsub("[[:punct:]]","-",ticker_names$Ticker)</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="co"># #Use stringi to parse and join string to our tickers</span></span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co"># ticker_names_transform &lt;- as.vector(stringi::stri_join(ticker_names_transform, ".TO"))</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#Now, using log returns to see the change in price with respect to the day before using tq_get from</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#tidyquant</span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a>TSX_returns <span class="ot">&lt;-</span> ticker_names<span class="sc">$</span>Symbol <span class="sc">%&gt;%</span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a>    <span class="fu">tq_get</span>(<span class="at">get =</span> <span class="st">"stock.prices"</span>,</span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a>           <span class="at">from =</span> <span class="st">"2023-01-01"</span>,</span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a>           <span class="at">to =</span> <span class="st">"2023-07-01"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a>    <span class="fu">group_by</span>(symbol) <span class="sc">%&gt;%</span> <span class="co">#See periodReturn per ticker</span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a>    <span class="fu">tq_transmute</span>(<span class="at">select =</span> adjusted,</span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a>                 <span class="at">mutate_fun =</span> periodReturn, <span class="co">#mutate_fun create new columns using specific function, here finding the period return</span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a>                 <span class="at">period=</span><span class="st">"daily"</span>,</span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a>                 <span class="at">type=</span><span class="st">"log"</span>,</span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a>                 <span class="at">col_rename =</span> <span class="st">"Ra"</span>) <span class="co">#Ra stands for return group a</span></span></code></pre></div>
+<pre><code>## Warning: There were 20 warnings in `dplyr::mutate()`.
+## The first warning was:
+## ℹ In argument: `data.. = purrr::map(...)`.
+## Caused by warning:
+## ! x = 'AMTM', get = 'stock.prices': Error in getSymbols.yahoo(Symbols = "AMTM", env = &lt;environment&gt;, verbose = FALSE, : Unable to import "AMTM".
+## cannot open the connection
+##  Removing AMTM.
+## ℹ Run `dplyr::last_dplyr_warnings()` to see the 19 remaining warnings.</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="fu">show</span>(TSX_returns)</span></code></pre></div>
+<pre><code>## # A tibble: 72,008 × 3
+## # Groups:   symbol [582]
+##    symbol date             Ra
+##    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;
+##  1 AAP    2023-01-03  0      
+##  2 AAP    2023-01-04  0.00231
+##  3 AAP    2023-01-05  0.00833
+##  4 AAP    2023-01-06  0.00560
+##  5 AAP    2023-01-09 -0.0115 
+##  6 AAP    2023-01-10 -0.00191
+##  7 AAP    2023-01-11  0.00858
+##  8 AAP    2023-01-12 -0.00714
+##  9 AAP    2023-01-13 -0.00765
+## 10 AAP    2023-01-17 -0.0121 
+## # ℹ 71,998 more rows</code></pre>
+<p>Next, we will benchmark the stock against particular industry index
+in S&amp;P500. We’ll choose XLK here since tq_get only works in the US
+Index</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" tabindex="-1"></a>XLK_returns <span class="ot">&lt;-</span> <span class="st">"XLK"</span> <span class="sc">%&gt;%</span></span>
+<span id="cb13-2"><a href="#cb13-2" tabindex="-1"></a>    <span class="fu">tq_get</span>(<span class="at">get=</span> <span class="st">"stock.prices"</span>,</span>
+<span id="cb13-3"><a href="#cb13-3" tabindex="-1"></a>           <span class="at">from =</span> <span class="st">"2023-01-01"</span>,</span>
+<span id="cb13-4"><a href="#cb13-4" tabindex="-1"></a>           <span class="at">to =</span> <span class="st">"2023-07-01"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-5"><a href="#cb13-5" tabindex="-1"></a>    <span class="fu">tq_transmute</span>(<span class="at">select =</span> adjusted,</span>
+<span id="cb13-6"><a href="#cb13-6" tabindex="-1"></a>                 <span class="at">mutate_fun =</span>  periodReturn,</span>
+<span id="cb13-7"><a href="#cb13-7" tabindex="-1"></a>                 <span class="at">type =</span> <span class="st">"log"</span>,</span>
+<span id="cb13-8"><a href="#cb13-8" tabindex="-1"></a>                 <span class="at">period =</span> <span class="st">"daily"</span>,</span>
+<span id="cb13-9"><a href="#cb13-9" tabindex="-1"></a>                 <span class="at">col_rename =</span> <span class="st">"Rb"</span>) <span class="co">#Return for group b </span></span>
+<span id="cb13-10"><a href="#cb13-10" tabindex="-1"></a></span>
+<span id="cb13-11"><a href="#cb13-11" tabindex="-1"></a><span class="co">#Perform left-join on Ra and Rb to see how well stocks perform against index</span></span>
+<span id="cb13-12"><a href="#cb13-12" tabindex="-1"></a>RaRb <span class="ot">&lt;-</span> <span class="fu">left_join</span>(TSX_returns,</span>
+<span id="cb13-13"><a href="#cb13-13" tabindex="-1"></a>                  XLK_returns,</span>
+<span id="cb13-14"><a href="#cb13-14" tabindex="-1"></a>                  <span class="at">by =</span> <span class="st">"date"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-15"><a href="#cb13-15" tabindex="-1"></a>        <span class="fu">group_by</span>(symbol)</span>
+<span id="cb13-16"><a href="#cb13-16" tabindex="-1"></a><span class="fu">show</span>(RaRb)</span></code></pre></div>
+<pre><code>## # A tibble: 72,008 × 4
+## # Groups:   symbol [582]
+##    symbol date             Ra       Rb
+##    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+##  1 AAP    2023-01-03  0        0      
+##  2 AAP    2023-01-04  0.00231  0.00259
+##  3 AAP    2023-01-05  0.00833 -0.0196 
+##  4 AAP    2023-01-06  0.00560  0.0289 
+##  5 AAP    2023-01-09 -0.0115   0.0116 
+##  6 AAP    2023-01-10 -0.00191  0.00616
+##  7 AAP    2023-01-11  0.00858  0.0172 
+##  8 AAP    2023-01-12 -0.00714  0.00741
+##  9 AAP    2023-01-13 -0.00765  0.00284
+## 10 AAP    2023-01-17 -0.0121   0.00451
+## # ℹ 71,998 more rows</code></pre>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" tabindex="-1"></a><span class="co">#Capital Asset Pricing Model (CAPM) : Expected Return R = alpha*Return - beta*Risk</span></span>
+<span id="cb15-2"><a href="#cb15-2" tabindex="-1"></a>CAPM <span class="ot">&lt;-</span> RaRb <span class="sc">%&gt;%</span></span>
+<span id="cb15-3"><a href="#cb15-3" tabindex="-1"></a>        <span class="fu">tq_performance</span>(</span>
+<span id="cb15-4"><a href="#cb15-4" tabindex="-1"></a>            <span class="at">Ra=</span>Ra,</span>
+<span id="cb15-5"><a href="#cb15-5" tabindex="-1"></a>            <span class="at">Rb =</span> Rb,</span>
+<span id="cb15-6"><a href="#cb15-6" tabindex="-1"></a>            <span class="at">performance_fun =</span> table.CAPM)</span></code></pre></div>
+<pre><code>## Registered S3 method overwritten by 'robustbase':
+##   method          from     
+##   hatvalues.lmrob RobStatTM</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" tabindex="-1"></a><span class="co">#Depend on return(Alpha) or Risk(Beta) preference, pick appropriate </span></span>
+<span id="cb17-2"><a href="#cb17-2" tabindex="-1"></a><span class="co">#indicator or Information Ratio a/b for both, or top quintile performance.</span></span>
+<span id="cb17-3"><a href="#cb17-3" tabindex="-1"></a>top_percentile <span class="ot">&lt;-</span> CAPM <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" tabindex="-1"></a>                <span class="fu">filter</span>(AnnualizedAlpha <span class="sc">&gt;</span> <span class="fu">quantile</span>(CAPM<span class="sc">$</span>AnnualizedAlpha, <span class="fl">0.9</span>))</span>
+<span id="cb17-5"><a href="#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" tabindex="-1"></a><span class="co">#Using the new tickers, return to our original log-return table to get its log-return</span></span>
+<span id="cb17-7"><a href="#cb17-7" tabindex="-1"></a>quintile_ticker <span class="ot">=</span> top_percentile<span class="sc">$</span>symbol</span>
+<span id="cb17-8"><a href="#cb17-8" tabindex="-1"></a></span>
+<span id="cb17-9"><a href="#cb17-9" tabindex="-1"></a>stock_returns_quintile <span class="ot">&lt;-</span> TSX_returns <span class="sc">%&gt;%</span> <span class="fu">filter</span>(symbol <span class="sc">%in%</span> quintile_ticker)</span>
+<span id="cb17-10"><a href="#cb17-10" tabindex="-1"></a><span class="fu">show</span>(stock_returns_quintile)</span></code></pre></div>
+<pre><code>## # A tibble: 7,201 × 3
+## # Groups:   symbol [59]
+##    symbol date             Ra
+##    &lt;chr&gt;  &lt;date&gt;        &lt;dbl&gt;
+##  1 ACAD   2023-01-03  0      
+##  2 ACAD   2023-01-04  0.0467 
+##  3 ACAD   2023-01-05  0.00699
+##  4 ACAD   2023-01-06  0.00463
+##  5 ACAD   2023-01-09 -0.0258 
+##  6 ACAD   2023-01-10  0.0258 
+##  7 ACAD   2023-01-11 -0.0163 
+##  8 ACAD   2023-01-12  0.0747 
+##  9 ACAD   2023-01-13  0.00327
+## 10 ACAD   2023-01-17 -0.0192 
+## # ℹ 7,191 more rows</code></pre>
+<h2 id="performing-portfolio-distribution">Performing Portfolio
+Distribution</h2>
+<h1 id="id_1-single-case-method">1. Single case method</h1>
+<p>We need to manually set weights since tq_portfolio doesn’t have
+filter function</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">5</span>)</span>
+<span id="cb19-2"><a href="#cb19-2" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">100</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" tabindex="-1"></a>random_weights <span class="ot">&lt;-</span> <span class="fu">sample</span>(weights, <span class="at">size=</span><span class="fu">length</span>(quintile_ticker), <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" tabindex="-1"></a>index_for_zeroes <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(random_weights)),<span class="fu">round</span>(<span class="fu">length</span>(quintile_ticker)<span class="sc">*</span><span class="fl">0.78</span>,<span class="dv">0</span>)) <span class="co">#37 out of 47 Tickers will be 0</span></span>
+<span id="cb19-5"><a href="#cb19-5" tabindex="-1"></a>random_weights[index_for_zeroes] <span class="ot">&lt;-</span> <span class="dv">0</span> <span class="co">#Insert zeroes accordingly</span></span>
+<span id="cb19-6"><a href="#cb19-6" tabindex="-1"></a><span class="co">#Random weigth of 0 yields result similar to Gaussian Hyper Parameter Search, which is better than quadratic optimization in term of speed and performance</span></span>
+<span id="cb19-7"><a href="#cb19-7" tabindex="-1"></a></span>
+<span id="cb19-8"><a href="#cb19-8" tabindex="-1"></a><span class="co">#Now, we need to ensure all weights sum up as 1 by normalizing them</span></span>
+<span id="cb19-9"><a href="#cb19-9" tabindex="-1"></a>weights_mapping_single <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb19-10"><a href="#cb19-10" tabindex="-1"></a>    <span class="at">symbols =</span> quintile_ticker,</span>
+<span id="cb19-11"><a href="#cb19-11" tabindex="-1"></a>    <span class="at">weights =</span> random_weights) <span class="sc">%&gt;%</span></span>
+<span id="cb19-12"><a href="#cb19-12" tabindex="-1"></a>        <span class="fu">mutate</span>( <span class="at">weights =</span> weights<span class="sc">/</span><span class="fu">sum</span>(weights))</span>
+<span id="cb19-13"><a href="#cb19-13" tabindex="-1"></a></span>
+<span id="cb19-14"><a href="#cb19-14" tabindex="-1"></a><span class="co">#Use tq_portfolio to pick portfolio with non-zero weights. Respective return = sum of product of log return X weights</span></span>
+<span id="cb19-15"><a href="#cb19-15" tabindex="-1"></a>portfolio_returns_daily <span class="ot">&lt;-</span> stock_returns_quintile <span class="sc">%&gt;%</span> </span>
+<span id="cb19-16"><a href="#cb19-16" tabindex="-1"></a>    <span class="fu">tq_portfolio</span>(<span class="at">assets_col =</span> symbol,</span>
+<span id="cb19-17"><a href="#cb19-17" tabindex="-1"></a>                 <span class="at">returns_col =</span>  Ra,</span>
+<span id="cb19-18"><a href="#cb19-18" tabindex="-1"></a>                 <span class="at">weights =</span>  weights_mapping_single,</span>
+<span id="cb19-19"><a href="#cb19-19" tabindex="-1"></a>                 <span class="at">col_rename =</span> <span class="st">"Ra"</span>)</span></code></pre></div>
+<pre><code>## Warning in PerformanceAnalytics::Return.portfolio(., weights = weights, : NA's
+## detected: filling NA's with zeros</code></pre>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" tabindex="-1"></a><span class="co">#Now, we join Benchmark return to our portfolio</span></span>
+<span id="cb21-2"><a href="#cb21-2" tabindex="-1"></a>RaRb_single_portfolio <span class="ot">&lt;-</span> <span class="fu">left_join</span>(portfolio_returns_daily,</span>
+<span id="cb21-3"><a href="#cb21-3" tabindex="-1"></a>                                   XLK_returns,</span>
+<span id="cb21-4"><a href="#cb21-4" tabindex="-1"></a>                                   <span class="at">by =</span> <span class="st">"date"</span>)</span>
+<span id="cb21-5"><a href="#cb21-5" tabindex="-1"></a><span class="fu">show</span>(RaRb_single_portfolio)</span></code></pre></div>
+<pre><code>## # A tibble: 124 × 3
+##    date              Ra       Rb
+##    &lt;date&gt;         &lt;dbl&gt;    &lt;dbl&gt;
+##  1 2023-01-03  0         0      
+##  2 2023-01-04  0.0250    0.00259
+##  3 2023-01-05 -0.0272   -0.0196 
+##  4 2023-01-06  0.00782   0.0289 
+##  5 2023-01-09  0.00963   0.0116 
+##  6 2023-01-10  0.0417    0.00616
+##  7 2023-01-11  0.0309    0.0172 
+##  8 2023-01-12  0.0315    0.00741
+##  9 2023-01-13  0.0195    0.00284
+## 10 2023-01-17  0.000884  0.00451
+## # ℹ 114 more rows</code></pre>
+<p>Then, we continue with CAPM analysis</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" tabindex="-1"></a><span class="co">#Perform CAPM analysis</span></span>
+<span id="cb23-2"><a href="#cb23-2" tabindex="-1"></a>RaRb_single_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb23-3"><a href="#cb23-3" tabindex="-1"></a>  <span class="fu">tq_performance</span>(<span class="at">Ra =</span> Ra, <span class="at">Rb =</span> Rb, <span class="at">performance_fun =</span> table.CAPM)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 17
+##   ActivePremium  Alpha AlphaRobust AnnualizedAlpha  Beta `Beta-` `Beta-Robust`
+##           &lt;dbl&gt;  &lt;dbl&gt;       &lt;dbl&gt;           &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1          1.11 0.0024      0.0025           0.837 0.800    1.04          1.07
+## # ℹ 10 more variables: `Beta+` &lt;dbl&gt;, `Beta+Robust` &lt;dbl&gt;, BetaRobust &lt;dbl&gt;,
+## #   Correlation &lt;dbl&gt;, `Correlationp-value` &lt;dbl&gt;, InformationRatio &lt;dbl&gt;,
+## #   `R-squared` &lt;dbl&gt;, `R-squaredRobust` &lt;dbl&gt;, TrackingError &lt;dbl&gt;,
+## #   TreynorRatio &lt;dbl&gt;</code></pre>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" tabindex="-1"></a>RaRb_single_portfolio <span class="sc">%&gt;%</span></span>
+<span id="cb25-2"><a href="#cb25-2" tabindex="-1"></a>  <span class="fu">tq_performance</span>(<span class="at">Ra =</span> Ra, <span class="at">Rb =</span> Rb, <span class="at">performance_fun =</span> InformationRatio)</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   InformationRatio.1
+##                &lt;dbl&gt;
+## 1               4.57</code></pre>
+<p>Finally, a bar plot should help us visualize the performance</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" tabindex="-1"></a>portfolio_returns_daily <span class="sc">%&gt;%</span></span>
+<span id="cb27-2"><a href="#cb27-2" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> date, <span class="at">y =</span> Ra)) <span class="sc">+</span></span>
+<span id="cb27-3"><a href="#cb27-3" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">stat =</span> <span class="st">"identity"</span>, <span class="at">fill =</span> <span class="fu">palette_light</span>()[[<span class="dv">1</span>]]) <span class="sc">+</span></span>
+<span id="cb27-4"><a href="#cb27-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Portfolio Returns"</span>,</span>
+<span id="cb27-5"><a href="#cb27-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">""</span>, <span class="at">y =</span> <span class="st">"Monthly Returns"</span>) <span class="sc">+</span></span>
+<span id="cb27-6"><a href="#cb27-6" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">"lm"</span>) <span class="sc">+</span></span>
+<span id="cb27-7"><a href="#cb27-7" tabindex="-1"></a>  <span class="fu">theme_tq</span>() <span class="sc">+</span></span>
+<span id="cb27-8"><a href="#cb27-8" tabindex="-1"></a>  <span class="fu">scale_color_tq</span>() <span class="sc">+</span></span>
+<span id="cb27-9"><a href="#cb27-9" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span>percent)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = 'y ~ x'</code></pre>
+<p><img role="img" src="data:image/png;base64,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"><!-- --></p>
+
+
+
+<div id="lbdictex_find_popup" class="lbexpopup hidden" style="position: absolute; top: 0px; left: 0px;"><div class="lbexpopup_top"><h2 class="fl popup_title">&nbsp;</h2><ul><li><a href="#" class="close_main popup_close">&nbsp;</a></li></ul><div class="clr"></div></div><div class="popup_details"></div><div class="popup_powered">abc</div></div><div id="lbdictex_ask_mark" class="hidden" style="position: absolute; top: 0px; left: 0px;"><a class="lbdictex_ask_select" href="#">&nbsp;</a></div></body></html>
